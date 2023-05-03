@@ -165,18 +165,13 @@ backspace.addEventListener("click", (e) => {
 })
 
 keys.forEach(i => {
-    i.addEventListener("click", (e) => {
-
-        if (state_caps == false && i.classList.length == 1) {
+    i.addEventListener("click", () => {
+        if (i.classList.length == 1) {
+            console.log(i)
             textarea.value += i.querySelector(".main").textContent
-            capsLock.style.background = "#fff"
-            state_caps = true
-        }
-        else if (i.classList.length == 1) {
-            textarea.value += i.querySelector(".main").textContent.toLowerCase()
             arr.push(i.querySelector(".main").textContent)
-            state_caps = false
         }
+
     })
 })
 
@@ -187,15 +182,6 @@ tab.addEventListener("click", () => {
 del.addEventListener("click", () => {
     arr = []
     textarea.value = ''
-})
-
-capsLock.addEventListener("click",(e)=>{
-    if(e.getModifierState("CapsLock")){
-        state_caps = true
-    }
-    else{
-        state_caps = false
-    }
 })
 
 
