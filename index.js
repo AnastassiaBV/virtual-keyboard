@@ -150,20 +150,33 @@ let backspace = document.querySelector(".backspace")
 let keys = document.querySelectorAll(".key")
 let tab = document.querySelector(".tab")
 let arr = []
+let state_caps = false
+textarea.addEventListener("input", (e) => {
+    arr.push(e.data)
+    // textarea.value = arr.join("")
+    console.log(e)
 
-backspace.addEventListener("click", () => {
+})
+
+backspace.addEventListener("click", (e) => {
+    e.preventDefault()
     arr.pop()
     textarea.value = arr.join('')
 })
 
 keys.forEach(i => {
-    i.addEventListener("click", () => {
-        if (i.classList.length == 1) {
-            console.log(i)
-            textarea.value += i.querySelector(".main").textContent
-            arr.push(i.querySelector(".main").textContent)
-        }
+    i.addEventListener("click", (e) => {
 
+        if (state_caps == false && i.classList.length == 1) {
+            textarea.value += i.querySelector(".main").textContent
+            capsLock.style.background = "#fff"
+            state_caps = true
+        }
+        else if (i.classList.length == 1) {
+            textarea.value += i.querySelector(".main").textContent.toLowerCase()
+            arr.push(i.querySelector(".main").textContent)
+            state_caps = false
+        }
     })
 })
 
@@ -171,5 +184,20 @@ tab.addEventListener("click", () => {
     textarea.value += "  "
     arr.push("  ")
 })
+del.addEventListener("click", () => {
+    arr = []
+    textarea.value = ''
+})
+
+capsLock.addEventListener("click",(e)=>{
+    if(e.getModifierState("CapsLock")){
+        state_caps = true
+    }
+    else{
+        state_caps = false
+    }
+})
+
+
 
 
